@@ -1,7 +1,7 @@
-name: sso_invitation-worker
+name: sso_invitation_email_sender
 
 env:
-  app: sso_invitation
+  app: sso_invitation_email_sender
 
 on:
   push:
