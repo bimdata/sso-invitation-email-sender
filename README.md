@@ -2,6 +2,29 @@
 
 This is an example of SSO invitations manager. It sends an email to the invited user and automatically accepts invitations.
 
+## Customization
+To customize emails, you must change `src/templates/content.html` and `src/templates/title.txt`
+
+## Config
+
+
+`API_URL` - URL of BIMData API
+`IAM_URL` - URL of BIMData IAM
+
+
+`EMAIL_HOST` - URL or IP of the SMTP server
+`EMAIL_PORT` - Port of the SMTP server
+`EMAIL_HOST_USER` - Username of the SMTP server
+`EMAIL_HOST_PASSWORD` - Password of the SMTP server
+`DEFAULT_FROM_EMAIL` - Email address of emails sender
+
+
+`INVITATION_SECRET` - Secret used to sign API requests. Must match value set in IdentityProvider config
+`ACCEPT_INVITATIONS` - Set to "true" if you want this module to automatically accept invitations. It is not needed if you have set "Auto accept invitation" is your API App settings.
+
+`INVITATION_CLIENT_ID` - Only needed if ACCEPT_INVITATIONS is true
+`INVITATION_CLIENT_SECRET` - Only needed if ACCEPT_INVITATIONS is true
+
 
 ## Install
 

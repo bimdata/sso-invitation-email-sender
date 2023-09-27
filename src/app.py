@@ -68,11 +68,11 @@ def invitation():
             response.status_code = 400
             return response
 
-    # Accept automatically invitation
-    requests.post(
-        f"{config.API_URL}/identity-provider/invitation/{invitation_data.get('id')}/accept",
-        headers={"Authorization": f"Bearer {get_invitation_access_token()}"},
-    )
+    if config.ACCEPT_INVITATIONS:
+        requests.post(
+            f"{config.API_URL}/identity-provider/invitation/{invitation_data.get('id')}/accept",
+            headers={"Authorization": f"Bearer {get_invitation_access_token()}"},
+        )
     mailer = Mailer(receiver=invitation_data.get("email"))
     mailer.send(invitation_data)
     return Response(), 204

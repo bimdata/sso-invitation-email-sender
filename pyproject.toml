@@ -5,20 +5,20 @@ description = ""
 authors = ["Hugo Duroux <infra@bimdata.io>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-gunicorn = "^20.0.4"
-Flask = "^2.0.2"
-python-dotenv = "^0.19.2"
-requests = "^2.26.0"
-Flask-Caching = "^1.10.1"
+python = "^3.10"
+gunicorn = "^21.2.0"
+Flask = "^2.3.3"
+python-dotenv = "^1.0.0"
+requests = "^2.31.0"
+Flask-Caching = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^2.5.1"
-flake8 = "^3.9.2"
-black = "^19.10b0"
-reorder-python-imports = "^2.3.1"
-pyflakes = "^2.3.1"
-pycodestyle = "^2.7.0"
+pre-commit = "^3.4.0"
+flake8 = "^6.1.0"
+black = "^23.9.1"
+reorder-python-imports = "^3.11.0"
+pyflakes = "^3.1.0"
+pycodestyle = "^2.11.0"
 
 [tool.black]
 line-length = 95
