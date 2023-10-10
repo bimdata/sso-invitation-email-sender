@@ -3,7 +3,8 @@
 This is an example of SSO invitations manager. It sends an email to the invited user and automatically accepts invitations.
 
 ## Customization
-To customize emails, you must change `src/templates/content.html` and `src/templates/title.txt`
+To customize emails, you must change `src/templates/content.html`, `src/templates/content.txt` and `src/templates/title.txt`
+All content of `title.txt` must be on one line to avoid security issues or an error will be raised.
 
 ## Config
 
