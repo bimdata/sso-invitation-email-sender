@@ -305,6 +305,21 @@ cachelib = ">=0.9.0,<0.10.0"
 Flask = "<3"
 
 [[package]]
+name = "flask-mail"
+version = "0.9.1"
+description = "Flask extension for sending email"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-Mail-0.9.1.tar.gz", hash = "sha256:22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41"},
+]
+
+[package.dependencies]
+blinker = "*"
+Flask = "*"
+
+[[package]]
 name = "gunicorn"
 version = "21.2.0"
 description = "WSGI HTTP Server for UNIX"
@@ -767,4 +782,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "cc8b90ec6bc82b41c8118592a71f79805c962ae682079e8f5560db3f43e47a95"
+content-hash = "97d9e87c7d9758c0d759cb44047ba8edc75aa643659a9a1278b857255ec4c3be"

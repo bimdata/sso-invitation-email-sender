@@ -5,12 +5,14 @@ from logging.config import dictConfig
 import requests
 from flask import Flask
 from flask import jsonify
+from flask import render_template
 from flask import request
 from flask import Response
+from flask_mail import Mail
+from flask_mail import Message
 
 from src.utils import config
 from src.utils.cache import cache
-from src.utils.mail import Mailer
 from src.utils.token import get_invitation_access_token
 
 dictConfig(
@@ -33,6 +35,16 @@ dictConfig(
 )
 
 app = Flask(__name__)
+
+
+app.config["MAIL_SERVER"] = config.SMTP_HOST
+app.config["MAIL_PORT"] = config.SMTP_PORT
+app.config["MAIL_USERNAME"] = config.SMTP_USER
+app.config["MAIL_PASSWORD"] = config.SMTP_PASS
+app.config["MAIL_USE_TLS"] = config.SMTP_USE_TLS
+app.config["MAIL_DEFAULT_SENDER"] = config.DEFAULT_FROM_EMAIL
+
+mail = Mail(app)
 
 cache.init_app(app)
 
@@ -73,6 +85,13 @@ def invitation():
             f"{config.API_URL}/identity-provider/invitation/{invitation_data.get('id')}/accept",
             headers={"Authorization": f"Bearer {get_invitation_access_token()}"},
         )
-    mailer = Mailer(receiver=invitation_data.get("email"))
-    mailer.send(invitation_data)
+
+    msg = Message(
+        subject=render_template("title.txt", **invitation_data).strip(),
+        sender=config.DEFAULT_FROM_EMAIL,
+        recipients=[invitation_data.get("email")],
+    )
+    msg.body = render_template("content.txt", **invitation_data)
+    msg.html = render_template("content.html", **invitation_data)
+    mail.send(msg)
     return Response(), 204
