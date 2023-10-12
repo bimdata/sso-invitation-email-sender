@@ -2,7 +2,6 @@ import hashlib
 import hmac
 from logging.config import dictConfig
 
-import requests
 from flask import Flask
 from flask import jsonify
 from flask import render_template
@@ -12,8 +11,6 @@ from flask_mail import Mail
 from flask_mail import Message
 
 from src.utils import config
-from src.utils.cache import cache
-from src.utils.token import get_invitation_access_token
 
 dictConfig(
     {
@@ -46,7 +43,10 @@ app.config["MAIL_DEFAULT_SENDER"] = config.DEFAULT_FROM_EMAIL
 
 mail = Mail(app)
 
-cache.init_app(app)
+
+@app.route("/health", methods=["HEAD", "GET"])
+def health():
+    return Response(), 200
 
 
 @app.route("/invitation", methods=["POST"])
@@ -79,12 +79,6 @@ def invitation():
             response = jsonify({field: "This field is required"})
             response.status_code = 400
             return response
-
-    if config.ACCEPT_INVITATIONS:
-        requests.post(
-            f"{config.API_URL}/identity-provider/invitation/{invitation_data.get('id')}/accept",
-            headers={"Authorization": f"Bearer {get_invitation_access_token()}"},
-        )
 
     msg = Message(
         subject=render_template("title.txt", **invitation_data).strip(),
