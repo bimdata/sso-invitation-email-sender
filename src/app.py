@@ -54,7 +54,7 @@ def invitation():
     req_signature = request.headers.get("x-bimdata-signature")
     if not req_signature:
         response = jsonify({"x-bimdata-signature": "Header required"})
-        response.status_code = 400
+        response.status_code = 401
         return response
 
     body_signature = hmac.new(
@@ -63,7 +63,7 @@ def invitation():
 
     if not hmac.compare_digest(req_signature, body_signature):
         response = jsonify({"x-bimdata-signature": "Bad request signature"})
-        response.status_code = 400
+        response.status_code = 401
         return response
 
     invitation_data = request.get_json()
